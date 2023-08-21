@@ -5,9 +5,16 @@ info:
   version: '1.3'
 servers:
   - url: https://std22075.com
+tags:
+  - name: students
+    description: manipulation of students
+  - name: teachers
+    description: manipulation of teachers
 paths:
   /students:
     get:
+      tags:
+        - students
       responses:
         '200':
           description: OK
@@ -18,11 +25,81 @@ paths:
         '500':
           description: Internal server error
     post:
+      tags:
+        - students
       requestBody:
         content:
           'application/x-www-form-urlencoded':
             schema:
               $ref: '#/components/schemas/students'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/students'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - students
+      requestBody:
+        content:
+          'application/x-www-form-urlencoded':
+            schema:
+              $ref: '#/components/schemas/students'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/students'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - students
+      requestBody:
+        content:
+          'application/x-www-form-urlencoded':
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/students'
+        '500':
+          description: Internal server error
+  /teachers:
+    get:
+      tags:
+        - teachers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/teachers'
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - teachers
+      requestBody:
+        content:
+          'application/x-www-form-urlencoded':
+            schema:
+              $ref: '#/components/schemas/teachers'
       responses:
         '200':
           description: OK
@@ -49,4 +126,38 @@ components:
           type: string
           format: date-time
           example: "2023-08-15T18:00:00Z"
+    teachers:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        first_name:
+          type: string
+          example: Toky
+        last_name:
+          type: string
+          example: Ramarozaka
+        course_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/course'
+    course:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: algo
+        course_code:
+          type: string
+          example: prog1
+        duration:
+          type: integer
+          example: 30
+          
           
